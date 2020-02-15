@@ -1,5 +1,5 @@
-#ifndef __SERIAL_UTIL_H
-#define __SERIAL_UTIL_H
+#ifndef __SERIAL_H
+#define __SERIAL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,4 +33,4 @@ class Serial
 };
 
 
-#endif // SERIAL_UTIL_H
+#endif // __SERIAL_H

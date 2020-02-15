@@ -1,4 +1,4 @@
-#include "SerialUtil.h"
+#include "Serial.h"
 
 #include <string.h> /* Required for strerror */
 

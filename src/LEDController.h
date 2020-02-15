@@ -4,8 +4,7 @@
 #include <string>
 
 #include "Color.h"
-#include "SerialUtil.h"
-
+#include "Serial.h"
 
 class LEDController
 {
