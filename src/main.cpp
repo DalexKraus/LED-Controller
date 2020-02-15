@@ -2,9 +2,14 @@
 #include <stdio.h>
 
 #include "LEDController.h"
+#include "Config.h"
 
 int main()
 {
+    Config cfg;
+    if (!cfg.loadConfig("settings.conf"))
+        return -1;
+
     //Device ttyACM0 is associated with the connected arduino
 	LEDController* controller = new LEDController("/dev/ttyACM0");
 	COLOR color = 0x00;
