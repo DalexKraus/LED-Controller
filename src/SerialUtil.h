@@ -18,7 +18,7 @@ class Serial
 	private:
         int         _serial_port;
 		std::string	_deviceName;
-		bool		_isConnected;
+		bool		_isConnected = false;
 
 	public:
 		Serial();

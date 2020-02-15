@@ -66,7 +66,7 @@ void Serial::connect(std::string deviceName)
     /* --- --- --- End of configuration --- --- --- */
 
     _isConnected = true;
-    printf("[INFO] Connection to device '%s' established.\n", _deviceName);
+    printf("[INFO] Connection to device '%s' established.\n", _deviceName.c_str());
 }
 
 void Serial::disconnect()
@@ -75,7 +75,7 @@ void Serial::disconnect()
 	{
         close(_serial_port);
 		_isConnected = false;
-        printf("[INFO] Connection to device '%s' closed.", _deviceName);
+        printf("[INFO] Connection to device '%s' closed.\n", _deviceName.c_str());
 	}
 }
 
