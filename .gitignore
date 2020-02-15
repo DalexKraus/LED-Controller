@@ -1,5 +1,8 @@
+.vscode/
 build/
 CMakeFiles/
+
 cmake_install.cmake
 ledctrl
 Makefile
+CMakeCache.txt
