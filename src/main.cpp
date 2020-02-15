@@ -10,6 +10,8 @@ int main()
     if (!cfg.loadConfig("settings.conf"))
         return -1;
 
+    printf("ipaddr: %s\n", cfg.getConfigEntry("bind_address").c_str());
+
     //Device ttyACM0 is associated with the connected arduino
 	LEDController* controller = new LEDController("/dev/ttyACM0");
 	COLOR color = 0x00;

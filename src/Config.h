@@ -11,10 +11,7 @@ class Config
 
     public:
         bool        loadConfig(std::string filePath);
-        bool        saveConfig(std::string filePath);
-
         std::string getConfigEntry(std::string key);
-        void        putConfigEntry(std::string key, std::string value);
     };
 
 #endif

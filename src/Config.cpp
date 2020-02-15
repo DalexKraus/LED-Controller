@@ -18,7 +18,7 @@ bool Config::loadConfig(std::string filePath)
     std::ifstream configFile(filePath);
     if (!configFile.is_open())
     {
-        printf("[Error] Configuration file '%s' does not exist!\n", filePath.c_str());
+        printf("[ERROR] Configuration file '%s' does not exist!\n", filePath.c_str());
         return false;
     }
 
@@ -39,16 +39,15 @@ bool Config::loadConfig(std::string filePath)
         _configEntries.insert({ splitLine.at(0), splitLine.at(1) });
     }
 
-    printf("[Info] Configuration '%s' loaded successfully.\n", filePath.c_str());
+    printf("[INFO] Configuration '%s' loaded successfully.\n", filePath.c_str());
     configFile.close();
 
     return true;
 }
 
-bool Config::saveConfig(std::string filePath)
+std::string Config::getConfigEntry(std::string key)
 {
-
-    return true;
+    return _configEntries[key];
 }
 
 std::vector<std::string> split(const std::string& string, char delimeter)
