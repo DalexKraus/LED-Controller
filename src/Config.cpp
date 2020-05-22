@@ -27,7 +27,7 @@ bool Config::loadConfig(std::string filePath)
     while (getline(configFile, currentLine))
     {
         //Delete leading and trailing whitespaces and tabs
-        currentLine.erase(std::remove(currentLine.begin(), currentLine.end(), ' '), currentLine.end());
+        currentLine.erase(std::remove(currentLine.begin(), currentLine.end(), ' '),  currentLine.end());
         currentLine.erase(std::remove(currentLine.begin(), currentLine.end(), '\t'), currentLine.end());
 
         //Skip empty lines or comments
