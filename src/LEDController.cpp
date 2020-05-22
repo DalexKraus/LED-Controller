@@ -19,6 +19,12 @@ void LEDController::applyColor(COLOR* color)
 		return;
 
 	_serial_interface->pwrite(color, sizeof(COLOR));
+    _currentColor = *color;
+}
+
+COLOR LEDController::getColor()
+{
+    return _currentColor;
 }
 
 bool LEDController::isConnected()

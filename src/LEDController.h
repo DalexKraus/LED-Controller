@@ -9,14 +9,16 @@
 class LEDController
 {
 	private:
-		Serial* _serial_interface;
+		Serial*     _serial_interface;
+        COLOR       _currentColor = 0x000000ff;
 
 	public:
 		 LEDController(std::string portName);
 		~LEDController();
 
-		void applyColor(COLOR* color);
-		bool isConnected();
+		void        applyColor(COLOR* color);
+        COLOR       getColor();
+		bool        isConnected();
 };
 
 #endif

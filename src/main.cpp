@@ -3,6 +3,7 @@
 
 #include "LEDController.h"
 #include "Config.h"
+#include "server/Server.h"
 
 int main()
 {
@@ -10,15 +11,27 @@ int main()
     if (!cfg.loadConfig("settings.conf"))
         return -1;
 
-    printf("ipaddr: %s\n", cfg.getConfigEntry("bind_address").c_str());
+    int server_port = atoi(cfg.getConfigEntry("bind_port").c_str());
+    if (server_port < 1024)
+    {
+        printf("[ERROR] The bind port must not be below 1024!\n");
+        printf("Please check the configuration file.\n");
+        return -1;
+    }
 
     //Device ttyACM0 is associated with the connected arduino
 	LEDController* controller = new LEDController("/dev/ttyACM0");
+    Server server;
+    server.start(server_port, controller);
+
 	COLOR color = 0x00;
 
-	while (true)
+	controller->applyColor(&color);
+	sleep(2);
+
+	while (controller->isConnected())
 	{
-		for (int i = 0; i < 360 * 36 && controller->isConnected(); i++)
+		for (int i = 0; i < 360 * 36; i += 15)
 		{
 			double rad = (2 * 3.14159) / 360;
 			double rad_val = rad * (i / 36);
