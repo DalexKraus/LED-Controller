@@ -18,7 +18,23 @@ void LEDController::applyColor(COLOR* color)
 	if (!isConnected())
 		return;
 
-	_serial_interface->pwrite(color, sizeof(COLOR));
+	//Shift color components as required by arduino
+	//// Required by Arduino:
+	//// 0xff000000 = red
+	//// 0x00ff0000 = green
+	//// 0x0000ff00 = blue
+	////
+	//// Current arrangement (GDI):
+	//// 0x000000ff = red
+	//// 0x0000ff00 = green
+	//// 0x00ff0000 = blue
+	//// -----
+	COLOR_COMPONENT r = (*color << 24) >> 24;
+	COLOR_COMPONENT g = (*color << 16) >> 24;
+	COLOR_COMPONENT b = (*color << 8)  >> 24;
+	COLOR arduinoColor = b << 16 | g << 8 | r;
+
+	_serial_interface->pwrite(&arduinoColor, sizeof(COLOR));
     _currentColor = *color;
 }
 

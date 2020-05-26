@@ -29,13 +29,15 @@ int main()
 	controller->applyColor(&color);
 	sleep(2);
 
-	while (controller->isConnected())
-	{
-		for (int i = 0; i < 360 * 36; i += 15)
-		{
-			double rad = (2 * 3.14159) / 360;
-			double rad_val = rad * (i / 36);
+    double sleepTime = 5 / 1000; //Time for each iteration, in milliseconds
+    double one_rad = (2 * 3.14159) / 360;
 
+/*
+    while (controller->isConnected())
+	{
+		for (double deg = 0; deg < 360; deg += 0.1) 
+		{
+			double rad_val = deg * one_rad;
 			int sinVal = ((std::sin(rad_val) + 1) / 2) * 255;
 			int cosVal = ((std::cos(rad_val) + 1) / 2) * 255;
 
@@ -45,9 +47,13 @@ int main()
 
 			color = createColor(true, &r, &g, &b);
 			controller->applyColor(&color);
+            sleep(sleepTime);
 		}
 	}
+*/
 
+    getchar();
+    
 	delete controller;
 	return EXIT_SUCCESS;
 }

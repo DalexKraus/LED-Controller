@@ -119,7 +119,6 @@ void Server::_t_acceptClients()
 void Server::_t_handleClient(ClientHandle* clientHandle)
 {
     char buffer[1024];
-
     while (_isRunning)
     {
         memset(buffer, 0, sizeof(buffer));
@@ -142,9 +141,21 @@ void Server::_t_handleClient(ClientHandle* clientHandle)
             switch (packetType)
             {
                 case __PCK_REQUEST_COLOR:
+                {
                     COLOR currentColor = _controllerInstance->getColor();
-                    printf("color: %d %x\n", currentColor, currentColor);
                     sendToClient(clientHandle, &currentColor);
+                    break;
+                }
+                case __PCK_SET_COLOR:
+                {
+                    if (readBytes >= 5) // PacketType + Packet Data (4 bytes for color) = 5 byte
+                    {
+                        COLOR receivedColor = *reinterpret_cast<COLOR*>(&buffer[0] + 1);    //Skip right to the start of the color which is
+                        _controllerInstance->applyColor(&receivedColor);                    //stored in the buffer
+                        printf("Recv: 0x%x\n", receivedColor);
+                    }
+                    break;
+                }
             }
         }
     }
