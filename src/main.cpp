@@ -25,18 +25,21 @@ int main()
     server.start(server_port, controller);
 
 	COLOR color = 0x00;
-
 	controller->applyColor(&color);
 	sleep(2);
 
     double sleepTime = 5 / 1000; //Time for each iteration, in milliseconds
     double one_rad = (2 * 3.14159) / 360;
 
-/*
     while (controller->isConnected())
 	{
+		// Display a simple fading light if the led mode is set to IDLE.
 		for (double deg = 0; deg < 360; deg += 0.1) 
 		{
+			// Stop when the led mode is not set to IDLE
+			while (controller->getLEDMode() != LED_MODE_IDLE)
+				sleep(0.02); // 20 milliseconds
+
 			double rad_val = deg * one_rad;
 			int sinVal = ((std::sin(rad_val) + 1) / 2) * 255;
 			int cosVal = ((std::cos(rad_val) + 1) / 2) * 255;
@@ -50,8 +53,7 @@ int main()
             sleep(sleepTime);
 		}
 	}
-*/
-
+	
     getchar();
     
 	delete controller;

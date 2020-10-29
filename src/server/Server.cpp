@@ -150,9 +150,25 @@ void Server::_t_handleClient(ClientHandle* clientHandle)
                 {
                     if (readBytes >= 5) // PacketType + Packet Data (4 bytes for color) = 5 byte
                     {
-                        COLOR receivedColor = *reinterpret_cast<COLOR*>(&buffer[0] + 1);    //Skip right to the start of the color which is
-                        _controllerInstance->applyColor(&receivedColor);                    //stored in the buffer
+                        COLOR receivedColor = *reinterpret_cast<COLOR*>(&buffer[0] + 1);    // +1 = skip the packet type
+                        _controllerInstance->applyColor(&receivedColor);                    
                         printf("Recv: 0x%x\n", receivedColor);
+                    }
+                    break;
+                }
+                case __PCK_REQUEST_MODE:
+                {
+                    LEDMode ledMode = _controllerInstance->getLEDMode();
+                    sendToClient(clientHandle, &ledMode);
+                    break;
+                }
+                case __PCK_SET_MODE:
+                {
+                    if (readBytes >= 2) // PacketType + LEDMode (1 byte) = 2 byte
+                    {
+                        LEDMode receivedMode = *reinterpret_cast<LEDMode*>(&buffer[0] + 1); // +1 = skip the packet type
+                        _controllerInstance->applyLEDMode(receivedMode);
+                        printf("Switched to LED mode: %x\n", receivedMode);
                     }
                     break;
                 }

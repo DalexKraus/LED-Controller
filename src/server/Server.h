@@ -65,7 +65,8 @@ class Server
     public:
         bool start(int bindPort, LEDController* controller);
         void stop();
-        bool running()   { return _isRunning; }
+        bool running()      { return _isRunning;        }
+        int  clientCount()  { return _clients.size();   }
         
         void sendToClient(ClientHandle* handle, const void* data);
 };

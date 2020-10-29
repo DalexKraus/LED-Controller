@@ -34,13 +34,24 @@ void LEDController::applyColor(COLOR* color)
 	COLOR_COMPONENT b = (*color << 8)  >> 24;
 	COLOR arduinoColor = b << 16 | g << 8 | r;
 
-	_serial_interface->pwrite(&arduinoColor, sizeof(COLOR));
+//	_serial_interface->pwrite(&arduinoColor, sizeof(COLOR));
+	_serial_interface->pwrite(color, sizeof(COLOR));
     _currentColor = *color;
 }
 
 COLOR LEDController::getColor()
 {
     return _currentColor;
+}
+
+LEDMode	LEDController::getLEDMode()
+{
+	return _led_mode;
+}
+
+void LEDController::applyLEDMode(LEDMode ledMode)
+{
+	_led_mode = ledMode;
 }
 
 bool LEDController::isConnected()
